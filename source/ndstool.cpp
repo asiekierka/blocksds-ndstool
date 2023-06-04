@@ -24,6 +24,8 @@ int filemask_num = 0;
 char *ndsfilename = 0;
 char *arm7filename = 0;
 char *arm9filename = 0;
+char *bios7filename = 0;
+char *bios9filename = 0;
 char *arm7ifilename = 0;
 char *arm9ifilename = 0;
 char *filerootdir = 0;
@@ -136,6 +138,8 @@ HelpLine helplines[] =
 	{"a",   "  DSi access flags\n-a accessflags (32-bit hex)"},
 	{"p",   "  DSi application flags\n-p appflags (8-bit hex)"},
 	{"q",   "  DSi ARM7 WRAM_A map address\n-m address (32-bit hex)"},
+	{"B",   "  NDS BIOS9 binary\n-B9 bios9.bin"},
+	{"B",   "  NDS BIOS7 binary\n-B7 bios7.bin"},
 };
 
 /*
@@ -202,7 +206,7 @@ int main(int argc, char *argv[])
 	#endif
 
 	if (argc < 2) { Help(); return 0; }
-	
+
 	int num_actions = 0;
 	int actions[MAX_ACTIONS];
 
@@ -423,7 +427,17 @@ int main(int argc, char *argv[])
 						default: Help(argv[a]); return 1;
 					}
 					break;
-				
+
+				case 'B':	// BIOS7 file
+					switch (argv[a][2])
+					{
+						case '7': REQUIRED(bios7filename); break;
+						case '9': REQUIRED(bios9filename); break;
+						case 0: REQUIRED(overlaydir); break;
+						default: Help(argv[a]); return 1;
+					}
+					break;
+
 				case '?':	// global or specific help
 				{
 					Help(argv[a][2] ? argv[a]+2 : 0);	// 0=global help

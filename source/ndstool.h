@@ -42,6 +42,8 @@ extern int filemask_num;
 extern char *ndsfilename;
 extern char *arm7filename;
 extern char *arm9filename;
+extern char *bios7filename;
+extern char *bios9filename;
 extern char *filerootdir;
 extern char *fatimagepath;
 extern char *overlaydir;
